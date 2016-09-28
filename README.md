@@ -1,6 +1,6 @@
 # pgreset
 
-The pgreset gem makes it possible to run rails db:reset against a postgres database with active connections.  It should eliminate "database in use" errors from rails.  Works with postgres 9.2 and above.
+The pgreset gem makes it possible to run rails db:reset against a postgres database with active connections.  It should eliminate "database in use" errors from rails.
 
 Credit for the [original solution](https://github.com/basecamp/pow/issues/212) goes to [Manuel Meurer](https://github.com/manuelmeurer).
 
