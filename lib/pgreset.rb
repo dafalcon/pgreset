@@ -5,7 +5,7 @@ module ActiveRecord
     class PostgreSQLDatabaseTasks
       def drop
         establish_master_connection
-        
+
         pid_column = 'pid'       # Postgresql 9.2 and newer
         if 0 == connection.select_all("SELECT column_name FROM information_schema.columns WHERE table_name = 'pg_stat_activity' AND column_name = 'pid';").count
           pid_column = 'procpid' # Postgresql 9.1 and older
