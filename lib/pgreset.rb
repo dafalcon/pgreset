@@ -11,8 +11,8 @@ module ActiveRecord
           pid_column = 'procpid' # Postgresql 9.1 and older
         end
 
-        connection.select_all "SELECT pg_terminate_backend(pg_stat_activity.#{pid_column}) FROM pg_stat_activity WHERE datname='#{configuration['database']}' AND #{pid_column} <> pg_backend_pid();"
-        connection.drop_database configuration['database']
+        connection.select_all "SELECT pg_terminate_backend(pg_stat_activity.#{pid_column}) FROM pg_stat_activity WHERE datname='#{configuration_hash['database']}' AND #{pid_column} <> pg_backend_pid();"
+        connection.drop_database configuration_hash['database']
       end
     end
   end
