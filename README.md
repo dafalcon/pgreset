@@ -4,6 +4,8 @@ The pgreset gem makes it possible to run rails db:reset against a postgres datab
 
 Credit for the [original solution](https://github.com/basecamp/pow/issues/212) goes to [Manuel Meurer](https://github.com/manuelmeurer).
 
+Special thanks to [Emil Kampp](https://github.com/ekampp) and [Michael Yin](https://github.com/layerssss) for adding Rails 6.1 support.
+
 ## Installation and Usage
 
 Add this line to your application's Gemfile:
