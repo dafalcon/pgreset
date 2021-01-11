@@ -6,10 +6,11 @@ module ActiveRecord
       def drop
         establish_master_connection
 
+        # `configuration_hash` was introduced in 6.1.0, prior versions have the database name in `configuration`.
         database_name =
-          begin
-            configuration_hash[:database] || configuration_hash.fetch('database')
-          rescue NoMethodError
+          if respond_to?(:configuration_hash, true)
+            configuration_hash.with_indifferent_access.fetch(:database)
+          else
             configuration['database']
           end
 
