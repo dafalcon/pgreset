@@ -8,7 +8,7 @@ module ActiveRecord
 
         database_name =
           begin
-            self.configuration_hash[:database] || self.configuration_hash.fetch('database')
+            configuration_hash[:database] || configuration_hash.fetch('database')
           rescue NoMethodError
             configuration['database']
           end
