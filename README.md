@@ -31,7 +31,20 @@ Now you can run rails db:reset as normal, and rails will kill active connections
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
+
+## Testing
+
+There's a script called pgreset-test.sh that can test a local copy of pgreset against various versions of ruby and rails.  The script assumes postgres is listening on a socket at /tmp/.s.PGSQL.5432 and accepts connections for a user with no password, and that rvm is installed.  You should at least test against these versions, since there were breaking changes to pgreset in them (replace PG_USER with your postgres username):
+
+    cd /path/to/your/pgreset/clone
+    ./pgreset-test.sh 3.0.4 6.0.4 PG_USER
+    ./pgreset-test.sh 3.1.2 7.0.8 PG_USER
+    ./pgreset-test.sh 3.1.2 7.1.1 PG_USER
+
+## Releasing
+
+To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
