@@ -4,15 +4,16 @@ module ActiveRecord
   module Tasks
     class PostgreSQLDatabaseTasks
       def drop
-        establish_master_connection
-
-        # `configuration_hash` was introduced in 6.1.0, prior versions have the database name in `configuration`.
-        database_name =
-          if respond_to?(:configuration_hash, true)
-            configuration_hash.with_indifferent_access.fetch(:database)
-          else
-            configuration['database']
-          end
+        # Extract the name of the application database from the configuration and
+        # establish a connection to the "postgres" database in the public schema.
+        # `configuration_hash` was introduced in rails 6.1.0, prior versions use `configuration`.
+        if respond_to?(:configuration_hash, true)
+          database_name = configuration_hash.with_indifferent_access.fetch(:database)
+          establish_connection(configuration_hash.merge(database: "postgres", schema_search_path: "public"))
+        else
+          database_name = configuration['database']
+          establish_connection(configuration.merge(database: "postgres", schema_search_path: "public"))
+        end
 
         pid_column = 'pid'       # Postgresql 9.2 and newer
         if 0 == connection.select_all("SELECT column_name FROM information_schema.columns WHERE table_name = 'pg_stat_activity' AND column_name = 'pid';").count
